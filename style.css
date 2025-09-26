@@ -6,10 +6,13 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
+    color: #00ff00; /* Classic hacker green */
+    background-color: #0a0a0a; /* Dark background */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 40, 0, 0.3) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 30, 0, 0.2) 0%, transparent 20%);
 }
 
 .container {
@@ -20,37 +23,43 @@ body {
 
 /* Header Styles */
 header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: linear-gradient(135deg, #001a00 0%, #003300 100%);
+    color: #00ff00;
     padding: 2rem 0;
+    border-bottom: 1px solid #00cc00;
+    text-shadow: 0 0 5px #00ff00;
 }
 
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: #00ff00;
 }
 
 .home-link {
-    color: white;
+    color: #00ff00;
     text-decoration: none;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, text-shadow 0.3s;
 }
 
 .home-link:hover {
     opacity: 0.8;
+    text-shadow: 0 0 10px #00ff00;
 }
 
 header p {
     font-size: 1.1rem;
     opacity: 0.9;
+    color: #99ff99;
 }
 
 /* Navigation */
 nav {
-    background: #2c3e50;
+    background: #001100;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #004400;
 }
 
 nav ul {
@@ -64,32 +73,35 @@ nav li {
 }
 
 nav a {
-    color: white;
+    color: #00ff00;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
 nav a:hover {
-    color: #667eea;
+    color: #99ff99;
+    text-shadow: 0 0 5px #00ff00;
 }
 
 /* Buttons */
 .btn {
     display: inline-block;
-    background: #667eea;
-    color: white;
+    background: #002200;
+    color: #00ff00;
     padding: 0.8rem 1.5rem;
-    border-radius: 5px;
+    border-radius: 0; /* Square edges for terminal feel */
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.3s, transform 0.2s;
+    transition: background 0.3s, box-shadow 0.3s;
+    border: 1px solid #00cc00;
+    font-family: 'Courier New', monospace;
 }
 
 .btn:hover {
-    background: #5a6fd8;
-    transform: translateY(-2px);
-    color: white;
+    background: #003300;
+    box-shadow: 0 0 10px #00ff00;
+    color: #00ff00;
 }
 
 .btn-small {
@@ -98,42 +110,47 @@ nav a:hover {
 }
 
 .btn.disabled {
-    background: #95a5a6;
+    background: #002200;
+    color: #005500;
     cursor: not-allowed;
+    border: 1px solid #005500;
 }
 
 .btn.disabled:hover {
-    transform: none;
-    background: #95a5a6;
+    box-shadow: none;
+    background: #002200;
 }
 
 /* Current Level Section */
 .current-level {
-    background: white;
-    border-radius: 10px;
+    background: #001100;
+    border-radius: 0;
     padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
     margin-bottom: 2rem;
+    border: 1px solid #004400;
 }
 
 .progress {
-    background: #ecf0f1;
-    border-radius: 10px;
+    background: #002200;
+    border-radius: 0;
     height: 20px;
     margin: 1rem 0;
     overflow: hidden;
+    border: 1px solid #004400;
 }
 
 .progress-bar {
-    background: linear-gradient(90deg, #667eea, #764ba2);
+    background: linear-gradient(90deg, #00aa00, #00ff00);
     height: 100%;
-    border-radius: 10px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #001100;
     font-size: 0.8rem;
     font-weight: bold;
+    text-shadow: none;
 }
 
 /* Level Grid */
@@ -145,20 +162,22 @@ nav a:hover {
 }
 
 .level-card {
-    background: white;
-    border-radius: 10px;
+    background: #001100;
+    border-radius: 0;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #004400;
 }
 
 .level-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
 
 .level-card.current {
-    border: 3px solid #667eea;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
 }
 
 .level-header {
@@ -169,30 +188,34 @@ nav a:hover {
 }
 
 .level-header h3 {
-    color: #2c3e50;
+    color: #00ff00;
     margin: 0;
 }
 
 .status {
     padding: 0.3rem 0.8rem;
-    border-radius: 20px;
+    border-radius: 0;
     font-size: 0.8rem;
     font-weight: bold;
+    border: 1px solid;
 }
 
 .status.completed {
-    background: #d4edda;
-    color: #155724;
+    background: #002200;
+    color: #00ff00;
+    border-color: #00ff00;
 }
 
 .status.in-progress {
-    background: #fff3cd;
-    color: #856404;
+    background: #002200;
+    color: #ffff00; /* Yellow for in-progress */
+    border-color: #ffff00;
 }
 
 .status.pending {
-    background: #e2e3e5;
-    color: #383d41;
+    background: #002200;
+    color: #888888;
+    border-color: #444444;
 }
 
 .level-actions {
@@ -201,10 +224,11 @@ nav a:hover {
 
 /* Level Content */
 .level-content {
-    background: white;
-    border-radius: 10px;
+    background: #001100;
+    border-radius: 0;
     padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+    border: 1px solid #004400;
 }
 
 .level-nav {
@@ -215,8 +239,21 @@ nav a:hover {
 
 .level-status {
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 0;
     font-weight: bold;
+    border: 1px solid;
+}
+
+.level-status.completed {
+    background: #002200;
+    color: #00ff00;
+    border-color: #00ff00;
+}
+
+.level-status.in-progress {
+    background: #002200;
+    color: #ffff00;
+    border-color: #ffff00;
 }
 
 /* Info Grid */
@@ -228,10 +265,15 @@ nav a:hover {
 }
 
 .info-item {
-    background: #f8f9fa;
+    background: #002200;
     padding: 1rem;
-    border-radius: 5px;
-    border-left: 4px solid #667eea;
+    border-radius: 0;
+    border-left: 4px solid #00ff00;
+    color: #99ff99;
+}
+
+.info-item strong {
+    color: #00ff00;
 }
 
 /* Steps */
@@ -240,27 +282,32 @@ nav a:hover {
 }
 
 .step h3 {
-    color: #2c3e50;
+    color: #00ff00;
     margin-bottom: 1rem;
+    border-bottom: 1px solid #004400;
+    padding-bottom: 0.5rem;
 }
 
 .code-block {
-    background: #1e1e1e;
-    border-radius: 5px;
+    background: #000000;
+    border-radius: 0;
     padding: 1rem;
     margin: 1rem 0;
     overflow-x: auto;
+    border: 1px solid #004400;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
 }
 
 pre {
     margin: 0;
-    color: #d4d4d4;
-    font-family: 'Consolas', 'Monaco', monospace;
+    color: #00ff00;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
     font-size: 0.9rem;
 }
 
 code {
-    font-family: 'Consolas', 'Monaco', monospace;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    color: #00ff00;
 }
 
 /* Resources */
@@ -272,15 +319,18 @@ code {
 }
 
 .resource-card {
-    background: white;
+    background: #001100;
     padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+    border: 1px solid #004400;
 }
 
 .resource-card h3 {
-    color: #2c3e50;
+    color: #00ff00;
     margin-bottom: 1rem;
+    border-bottom: 1px solid #004400;
+    padding-bottom: 0.5rem;
 }
 
 .resource-card ul {
@@ -292,32 +342,166 @@ code {
 }
 
 .resource-card a {
-    color: #667eea;
+    color: #99ff99;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
 .resource-card a:hover {
-    color: #764ba2;
-    text-decoration: underline;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
 }
 
 /* Footer */
 footer {
-    background: #2c3e50;
-    color: white;
+    background: #001100;
+    color: #99ff99;
     text-align: center;
     padding: 2rem 0;
     margin-top: 3rem;
+    border-top: 1px solid #004400;
 }
 
 footer a {
-    color: #667eea;
+    color: #00ff00;
     text-decoration: none;
+    transition: text-shadow 0.3s;
 }
 
 footer a:hover {
-    text-decoration: underline;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+/* Additional styles for level pages */
+.prerequisites {
+    background: #002200;
+    padding: 1.5rem;
+    border-radius: 0;
+    margin: 2rem 0;
+    border-left: 4px solid #ffff00;
+    border: 1px solid #444400;
+}
+
+.prerequisites h2 {
+    border-bottom: none;
+    margin-top: 0;
+    color: #ffff00;
+}
+
+.prerequisites ul {
+    margin-top: 1rem;
+}
+
+.prerequisites li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    color: #99ff99;
+}
+
+.troubleshooting {
+    background: #002200;
+    padding: 1.5rem;
+    border-radius: 0;
+    margin: 2rem 0;
+    border-left: 4px solid #ff4444;
+    border: 1px solid #440000;
+}
+
+.troubleshooting h2 {
+    border-bottom: none;
+    margin-top: 0;
+    color: #ff6666;
+}
+
+.issue {
+    margin-bottom: 1.5rem;
+}
+
+.issue h3 {
+    color: #ff6666;
+    margin-bottom: 0.5rem;
+}
+
+.issue ul {
+    margin-top: 0.5rem;
+}
+
+.issue li {
+    margin-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    color: #ff9999;
+}
+
+.common-mistakes {
+    background: #002200;
+    padding: 1.5rem;
+    border-radius: 0;
+    margin: 2rem 0;
+    border-left: 4px solid #ff4444;
+    border: 1px solid #440000;
+}
+
+.common-mistakes h2 {
+    border-bottom: none;
+    margin-top: 0;
+    color: #ff6666;
+}
+
+.common-mistakes ul {
+    margin-top: 1rem;
+}
+
+.common-mistakes li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    color: #ff9999;
+}
+
+.tips {
+    background: #002200;
+    padding: 1.5rem;
+    border-radius: 0;
+    margin: 2rem 0;
+    border-left: 4px solid #00ffff;
+    border: 1px solid #004444;
+}
+
+.tips h2 {
+    border-bottom: none;
+    margin-top: 0;
+    color: #00ffff;
+}
+
+.tips ul {
+    margin-top: 1rem;
+}
+
+.tips li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    color: #99ffff;
+}
+
+.explanation h3 {
+    color: #00ff00;
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.3rem;
+}
+
+/* Terminal cursor effect for headers */
+h1, h2, h3 {
+    position: relative;
+}
+
+h1::after, h2::after, h3::after {
+    content: '|';
+    animation: blink 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* Responsive Design */
@@ -347,4 +531,29 @@ footer a:hover {
     .status {
         margin-top: 0.5rem;
     }
+    
+    /* Remove cursor animation on mobile for better performance */
+    h1::after, h2::after, h3::after {
+        content: '';
+        animation: none;
+    }
+}
+
+/* Scanline effect for that authentic terminal feel */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 20, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.3;
 }
