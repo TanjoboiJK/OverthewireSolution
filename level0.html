@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 0 → Level 1 Solution - Bandit Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 0 → Level 1 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="level-nav">
+            <a href="#" class="btn btn-small disabled">← Previous</a>
+            <a href="level1.html" class="btn btn-small">Next Level →</a>
+        </div>
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 0 → Level 1</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit0
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> bandit0
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The goal of this level is to log into the game using SSH. The host to which you need to connect is <strong>bandit.labs.overthewire.org</strong>, on port <strong>2220</strong>. The username is <strong>bandit0</strong> and the password is <strong>bandit0</strong>. Once logged in, go to the Level 1 page to find out how to beat Level 1.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                <div class="step">
+                    <h3>Step 1: Connect via SSH</h3>
+                    <p>Open your terminal and use the following command:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit0@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Enter Password</h3>
+                    <p>When prompted, enter the password:</p>
+                    <div class="code-block">
+                        <pre><code>bandit0</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Success!</h3>
+                    <p>You should see a welcome message and be logged into the server:</p>
+                    <div class="code-block">
+                        <pre><code>Welcome to OverTheWire!
+...
+bandit0@bandit:~$</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This is the introductory level designed to get you familiar with connecting to the Bandit server via SSH. SSH (Secure Shell) is a protocol used to securely connect to remote servers.</p>
+                <ul>
+                    <li><strong>-p 2220</strong>: Specifies the port number (default SSH port is 22, but Bandit uses 2220)</li>
+                    <li>The format is <strong>username@hostname</strong></li>
+                    <li>After successful login, you'll have access to the Bandit server</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you're logged in, proceed to <a href="level1.html">Level 1 → Level 2</a> to continue your journey!</p>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="#" class="btn btn-small disabled">← Previous</a>
+            <a href="level1.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
