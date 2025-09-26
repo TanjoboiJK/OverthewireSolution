@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 → Level 3 Solution - Bandit Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 2 → Level 3 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- <div class="level-nav">
+            <a href="level1.html" class="btn btn-small">← Previous Level</a>
+            <a href="level3.html" class="btn btn-small">Next Level →</a>
+        </div> -->
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 2 → Level 3</h1>
+                <span class="level-status in-progress">In Progress</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit2
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> [From Level 1]
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in a file called <strong>spaces in this filename</strong> located in the home directory.</p>
+                <p><strong>Challenge:</strong> The filename contains spaces, which need special handling in the command line.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit2</h3>
+                    <p>Use the password you obtained from Level 1 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit2@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: List Files in Home Directory</h3>
+                    <p>Check what files are available:</p>
+                    <div class="code-block">
+                        <pre><code>ls</code></pre>
+                    </div>
+                    <p>You should see a file named <code>spaces in this filename</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Read the File (Method 1 - Using Quotes)</h3>
+                    <p>The easiest way to handle spaces in filenames is to enclose the entire filename in quotes:</p>
+                    <div class="code-block">
+                        <pre><code>cat "spaces in this filename"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Read the File (Method 2 - Escaping Spaces)</h3>
+                    <p>Alternatively, you can escape each space with a backslash:</p>
+                    <div class="code-block">
+                        <pre><code>cat spaces\ in\ this\ filename</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Read the File (Method 3 - Using Tab Completion)</h3>
+                    <p>You can also use tab completion to automatically escape the spaces:</p>
+                    <div class="code-block">
+                        <pre><code>cat sp[Tab]</code></pre>
+                    </div>
+                    <p>Pressing Tab after typing "sp" will automatically complete and escape the filename.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Get the Password</h3>
+                    <p>Whichever method you use, the command will output the password for Level 3.</p>
+                    <div class="code-block">
+                        <pre><code>aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level teaches you how to handle filenames with special characters (spaces) in Linux.</p>
+                
+                <h3>Why Spaces Cause Problems:</h3>
+                <ul>
+                    <li>In Linux command line, spaces are used to separate different arguments</li>
+                    <li>When you type <code>cat spaces in this filename</code>, the system interprets it as four separate arguments</li>
+                    <li>It tries to read four different files: <code>spaces</code>, <code>in</code>, <code>this</code>, and <code>filename</code></li>
+                </ul>
+
+                <h3>Solution Methods:</h3>
+                <ul>
+                    <li><strong>Quotes:</strong> Wrapping the filename in quotes tells the shell to treat everything inside as a single argument</li>
+                    <li><strong>Escaping:</strong> Using backslash before each space tells the shell to treat the space as part of the filename</li>
+                    <li><strong>Tab Completion:</strong> Letting the shell automatically handle the escaping for you</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Using quotes is generally the safest and most readable method</li>
+                    <li>Tab completion is the fastest method once you're familiar with it</li>
+                    <li>You can also use single quotes: <code>cat 'spaces in this filename'</code></li>
+                    <li>To see how tab completion works, type <code>cat sp</code> and then press Tab multiple times</li>
+                </ul>
+            </section>
+
+            <!-- <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to <a href="level3.html">Level 3 → Level 4</a> to continue your journey!</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit3@bandit.labs.overthewire.org -p 2220
+Password: aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</code></pre>
+                </div>
+            </section> -->
+        </article>
+
+        <div class="level-nav">
+            <a href="level1-2.html" class="btn btn-small">← Previous Level</a>
+            <a href="level3-4.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -10,7 +10,7 @@
     <header>
         <div class="container">
             <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
-            <p>Level 0 → Level 1 Walkthrough</p>
+            <p>Level 0 </p>
         </div>
     </header>
 
@@ -26,8 +26,8 @@
 
     <main class="container">
         <div class="level-nav">
-            <a href="#" class="btn btn-small disabled">← Previous</a>
-            <a href="level1.html" class="btn btn-small">Next Level →</a>
+            <a href="#" class="btn btn-small disabled">← Previous Level</a>
+            <a href="level0-1.html" class="btn btn-small">Next Level →</a>
         </div>
 
         <article class="level-content">
@@ -56,57 +56,144 @@
 
             <section class="level-goal">
                 <h2>🎯 Level Goal</h2>
-                <p>The goal of this level is to log into the game using SSH. The host to which you need to connect is <strong>bandit.labs.overthewire.org</strong>, on port <strong>2220</strong>. The username is <strong>bandit0</strong> and the password is <strong>bandit0</strong>. Once logged in, go to the Level 1 page to find out how to beat Level 1.</p>
+                <p>The goal of this level is to log into the game using SSH. The host to which you need to connect is <strong>bandit.labs.overthewire.org</strong>, on port <strong>2220</strong>. The username is <strong>bandit0</strong> and the password is <strong>bandit0</strong>.</p>
+                <p>Once logged in, go to the Level 1 page to find out how to beat Level 1.</p>
+            </section>
+
+            <section class="prerequisites">
+                <h2>📝 Prerequisites</h2>
+                <ul>
+                    <li>A terminal or SSH client (built-in on Linux/Mac, use PuTTY on Windows)</li>
+                    <li>Internet connection</li>
+                    <li>Basic knowledge of command line (optional for this level)</li>
+                </ul>
             </section>
 
             <section class="solution">
                 <h2>🔧 Solution Steps</h2>
+                
                 <div class="step">
-                    <h3>Step 1: Connect via SSH</h3>
-                    <p>Open your terminal and use the following command:</p>
+                    <h3>Step 1: Open Your Terminal/SSH Client</h3>
+                    <p>Open your preferred terminal application:</p>
+                    <ul>
+                        <li><strong>Linux/Mac:</strong> Open Terminal</li>
+                        <li><strong>Windows:</strong> Use PuTTY or Windows Terminal</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Connect via SSH</h3>
+                    <p>Type the following command in your terminal:</p>
                     <div class="code-block">
                         <pre><code>ssh bandit0@bandit.labs.overthewire.org -p 2220</code></pre>
                     </div>
+                    <p><strong>Explanation of the command:</strong></p>
+                    <ul>
+                        <li><code>ssh</code> - Secure Shell protocol for remote login</li>
+                        <li><code>bandit0@</code> - Username for authentication</li>
+                        <li><code>bandit.labs.overthewire.org</code> - Hostname of the server</li>
+                        <li><code>-p 2220</code> - Port number (default SSH port is 22, but Bandit uses 2220)</li>
+                    </ul>
                 </div>
 
                 <div class="step">
-                    <h3>Step 2: Enter Password</h3>
-                    <p>When prompted, enter the password:</p>
+                    <h3>Step 3: Accept the SSH Fingerprint (First Time Only)</h3>
+                    <p>If this is your first time connecting, you'll see a message like this:</p>
+                    <div class="code-block">
+                        <pre><code>The authenticity of host 'bandit.labs.overthewire.org (...)' can't be established.
+ECDSA key fingerprint is SHA256:...
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</code></pre>
+                    </div>
+                    <p>Type <code>yes</code> and press Enter to continue.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Enter the Password</h3>
+                    <p>When prompted, enter the password for bandit0:</p>
                     <div class="code-block">
                         <pre><code>bandit0</code></pre>
                     </div>
+                    <p><strong>Note:</strong> The password won't be visible as you type (no asterisks or dots). This is normal for security reasons.</p>
                 </div>
 
                 <div class="step">
-                    <h3>Step 3: Success!</h3>
-                    <p>You should see a welcome message and be logged into the server:</p>
+                    <h3>Step 5: Success!</h3>
+                    <p>If everything is correct, you'll see a welcome message and be logged into the server:</p>
                     <div class="code-block">
                         <pre><code>Welcome to OverTheWire!
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver0    '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
 ...
 bandit0@bandit:~$</code></pre>
                     </div>
+                    <p>You're now logged in and ready for Level 1!</p>
+                </div>
+            </section>
+
+            <section class="troubleshooting">
+                <h2>🔍 Troubleshooting</h2>
+                <div class="issue">
+                    <h3>Connection Refused or Timed Out</h3>
+                    <p><strong>Possible causes:</strong></p>
+                    <ul>
+                        <li>Internet connection issues</li>
+                        <li>Firewall blocking port 2220</li>
+                        <li>Server maintenance (check OverTheWire status)</li>
+                    </ul>
+                </div>
+
+                <div class="issue">
+                    <h3>Permission Denied</h3>
+                    <p><strong>Possible causes:</strong></p>
+                    <ul>
+                        <li>Wrong username (should be bandit0)</li>
+                        <li>Wrong password (should be bandit0)</li>
+                        <li>Typo in the command</li>
+                    </ul>
+                </div>
+
+                <div class="issue">
+                    <h3>Command Not Found: ssh</h3>
+                    <p><strong>Solution for Windows:</strong> Use PuTTY instead of command line, or install OpenSSH</p>
                 </div>
             </section>
 
             <section class="explanation">
                 <h2>💡 Explanation</h2>
-                <p>This is the introductory level designed to get you familiar with connecting to the Bandit server via SSH. SSH (Secure Shell) is a protocol used to securely connect to remote servers.</p>
-                <ul>
-                    <li><strong>-p 2220</strong>: Specifies the port number (default SSH port is 22, but Bandit uses 2220)</li>
-                    <li>The format is <strong>username@hostname</strong></li>
-                    <li>After successful login, you'll have access to the Bandit server</li>
-                </ul>
+                <p>This is the introductory level designed to get you familiar with connecting to the Bandit server via SSH.</p>
+                
+                <h3>What is SSH?</h3>
+                <p>SSH (Secure Shell) is a protocol used to securely connect to remote servers over an unsecured network. It provides encrypted communication between two untrusted hosts.</p>
+
+                <h3>Why Port 2220?</h3>
+                <p>While the standard SSH port is 22, OverTheWire uses port 2220 to avoid conflicts with any existing SSH services on your machine and to manage multiple wargames.</p>
+
+                <h3>What Happens After Login?</h3>
+                <p>Once logged in as bandit0, you'll have access to the Bandit server with limited permissions. The password for the next level (bandit1) is stored in a file in the home directory.</p>
             </section>
 
-            <section class="next-level">
-                <h2>➡️ Next Level</h2>
-                <p>Once you're logged in, proceed to <a href="level1.html">Level 1 → Level 2</a> to continue your journey!</p>
-            </section>
+            
         </article>
 
         <div class="level-nav">
-            <a href="#" class="btn btn-small disabled">← Previous</a>
-            <a href="level1.html" class="btn btn-small">Next Level →</a>
+            <a href="#" class="btn btn-small disabled">← Previous Level</a>
+            <a href="level0-1.html" class="btn btn-small">Next Level →</a>
         </div>
     </main>
 

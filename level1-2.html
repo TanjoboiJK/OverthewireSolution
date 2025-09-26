@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 → Level 2 Solution - Bandit Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 1 → Level 2 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- <div class="level-nav">
+            <a href="level0.html" class="btn btn-small">← Previous Level</a>
+            <a href="level2-3.html" class="btn btn-small">Next Level →</a>
+        </div> -->
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 1 → Level 2</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit1
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> [From Level 0]
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in a file called <strong>-</strong> located in the home directory.</p>
+                <p><strong>Challenge:</strong> The filename is just a dash (-), which is a special character in Linux command line.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit1</h3>
+                    <p>Use the password you obtained from Level 0 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit1@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: List Files in Home Directory</h3>
+                    <p>Check what files are available:</p>
+                    <div class="code-block">
+                        <pre><code>ls</code></pre>
+                    </div>
+                    <p>You should see a file named <code>-</code> (just a dash)</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Read the File (Method 1 - Using ./ prefix)</h3>
+                    <p>The safest way to read a file named "-" is to specify the path explicitly:</p>
+                    <div class="code-block">
+                        <pre><code>cat ./-
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Read the File (Method 2 - Using stdin redirection)</h3>
+                    <p>You can also use input redirection to read the file:</p>
+                    <div class="code-block">
+                        <pre><code>cat &lt; -
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Read the File (Method 3 - Using -- argument)</h3>
+                    <p>Many commands accept "--" to indicate the end of options:</p>
+                    <div class="code-block">
+                        <pre><code>cat -- -
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Get the Password</h3>
+                    <p>Whichever method you use, the command will output the password for Level 2.</p>
+                    <div class="code-block">
+                        <pre><code>CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level teaches you how to handle filenames with special meanings in Linux.</p>
+                
+                <h3>Why the Dash (-) Causes Problems:</h3>
+                <ul>
+                    <li>In Linux command line, a single dash (<code>-</code>) typically represents standard input (stdin) or standard output (stdout)</li>
+                    <li>When you type <code>cat -</code>, the system expects you to provide input from the keyboard</li>
+                    <li>It doesn't interpret <code>-</code> as a filename because it has a special meaning</li>
+                </ul>
+
+                <h3>Solution Methods:</h3>
+                <ul>
+                    <li><strong>./ prefix:</strong> Adding <code>./</code> before the filename makes it clear you're referring to a file in the current directory</li>
+                    <li><strong>Stdin redirection:</strong> Using <code>&lt;</code> tells the shell to read from the file rather than expecting keyboard input</li>
+                    <li><strong>-- argument:</strong> The double dash (<code>--</code>) signals the end of command options, so anything after it is treated as a filename</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Trying <code>cat -</code> alone:</strong> This will put you in input mode waiting for keyboard input</li>
+                    <li><strong>Forgetting the path:</strong> Always specify the path when dealing with special filenames</li>
+                    <li><strong>Confusing with options:</strong> Remember that single characters after a command are often interpreted as options</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Using <code>./-</code> is the most reliable method across different systems</li>
+                    <li>The <code>--</code> method works with many commands, not just <code>cat</code></li>
+                    <li>You can press <code>Ctrl+D</code> to exit if you accidentally run <code>cat -</code> without the proper syntax</li>
+                    <li>Remember this technique for any filename that starts with a dash</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to <a href="level2.html">Level 2 → Level 3</a> to continue your journey!</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit2@bandit.labs.overthewire.org -p 2220
+Password: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9</code></pre>
+                </div>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="level0-1.html" class="btn btn-small">← Previous Level</a>
+            <a href="level2-3.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
