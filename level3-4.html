@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3 → Level 4 Solution - Bandit Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 3 → Level 4 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- <div class="level-nav">
+            <a href="level2.html" class="btn btn-small">← Previous Level</a>
+            <a href="level4.html" class="btn btn-small">Next Level →</a>
+        </div> -->
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 3 → Level 4</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit3
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> aBZ0W5EmUfAf7kHTQeOwd8
+                        bauFJ2lAiG
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in a <strong>hidden file</strong> in the <strong>inhere</strong> directory.</p>
+                <p><strong>Challenge:</strong> Find and read a file that starts with a dot (.), which makes it hidden in normal directory listings.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit3</h3>
+                    <p>Use the password from Level 2 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit3@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Explore the Directory</h3>
+                    <p>Check what's in the home directory:</p>
+                    <div class="code-block">
+                        <pre><code>ls</code></pre>
+                    </div>
+                    <p>You should see a directory called <code>inhere</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Navigate to the inhere Directory</h3>
+                    <p>Change into the inhere directory:</p>
+                    <div class="code-block">
+                        <pre><code>cd inhere</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: List All Files (Including Hidden Ones)</h3>
+                    <p>Use the <code>-a</code> flag to show hidden files:</p>
+                    <div class="code-block">
+                        <pre><code>ls -la</code></pre>
+                    </div>
+                    <p>Output will show something like:</p>
+                    <div class="code-block">
+                        <pre><code>total 12
+drwxr-xr-x 2 root    root    4096 May  7  2020 .
+drwxr-xr-x 3 root    root    4096 May  7  2020 ..
+-rw-r----- 1 bandit4 bandit3   33 May  7  2020 .hidden</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Read the Hidden File</h3>
+                    <p>Read the <code>.hidden</code> file to get the password:</p>
+                    <div class="code-block">
+                        <pre><code>cat .hidden</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Get the Password</h3>
+                    <p>The file contains the password for Level 4:</p>
+                    <div class="code-block">
+                        <pre><code>2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces hidden files in Linux systems.</p>
+                
+                <h3>What are Hidden Files?</h3>
+                <ul>
+                    <li>In Linux, files starting with a dot (.) are hidden</li>
+                    <li>They don't appear in normal <code>ls</code> listings</li>
+                    <li>Common hidden files: <code>.bashrc</code>, <code>.profile</code>, <code>.ssh/</code></li>
+                </ul>
+
+                <h3>Key Commands Used:</h3>
+                <ul>
+                    <li><strong>ls -la</strong> - Lists all files (including hidden) with details</li>
+                    <li><strong>cd</strong> - Changes directory</li>
+                    <li><strong>cat</strong> - Displays file contents</li>
+                </ul>
+
+                <h3>Understanding ls Options:</h3>
+                <ul>
+                    <li><strong>-l</strong> - Long format (detailed listing)</li>
+                    <li><strong>-a</strong> - All files (including hidden)</li>
+                    <li><strong>-la</strong> - Combines both options</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Using only <code>ls</code>:</strong> Won't show hidden files</li>
+                    <li><strong>Forgetting the dot:</strong> Hidden files must be referenced with their leading dot</li>
+                    <li><strong>Wrong directory:</strong> Make sure you're in the <code>inhere</code> directory</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>You can use <code>ls -A</code> to show hidden files but exclude <code>.</code> and <code>..</code></li>
+                    <li>Tab completion works with hidden files too: type <code>cat .h</code> then press Tab</li>
+                    <li>Hidden files are often used for configuration and sensitive data</li>
+                    <li>You can create your own hidden files by naming them with a dot prefix</li>
+                </ul>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using Wildcards</h3>
+                    <p>You can use wildcards to match hidden files:</p>
+                    <div class="code-block">
+                        <pre><code>cat .*</code></pre>
+                    </div>
+                    <p><strong>Warning:</strong> This will try to read ALL hidden files, including <code>.</code> and <code>..</code> which are directories</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using find Command</h3>
+                    <p>Find all files in the current directory:</p>
+                    <div class="code-block">
+                        <pre><code>find . -type f -name ".*"</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to Level 4:</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit4@bandit.labs.overthewire.org -p 2220
+Password: 2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe</code></pre>
+                </div>
+                <p>In Level 4, you'll need to find the only human-readable file in a directory.</p>
+                <a href="level4.html" class="btn">Go to Level 4 Solution →</a>
+            </section> -->
+        </article>
+
+        <div class="level-nav">
+            <a href="level2-3.html" class="btn btn-small">← Previous Level</a>
+            <a href="level4-5.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
