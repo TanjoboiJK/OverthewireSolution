@@ -8,11 +8,11 @@
 body {
     font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
     line-height: 1.6;
-    color: #00ff00; /* Classic hacker green */
-    background-color: #0a0a0a; /* Dark background */
+    color: #ffffff; /* White text for better readability */
+    background-color: #000000; /* Pure black background */
     background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 40, 0, 0.3) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 30, 0, 0.2) 0%, transparent 20%);
+        radial-gradient(circle at 20% 30%, rgba(0, 80, 0, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 60, 0, 0.1) 0%, transparent 40%);
 }
 
 .container {
@@ -23,134 +23,154 @@ body {
 
 /* Header Styles */
 header {
-    background: linear-gradient(135deg, #001a00 0%, #003300 100%);
+    background: linear-gradient(135deg, #000000 0%, #002000 100%);
     color: #00ff00;
     padding: 2rem 0;
-    border-bottom: 1px solid #00cc00;
-    text-shadow: 0 0 5px #00ff00;
+    border-bottom: 2px solid #00ff00;
+    text-shadow: 0 0 8px #00ff00;
 }
 
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     color: #00ff00;
+    text-align: center;
 }
 
 .home-link {
     color: #00ff00;
     text-decoration: none;
-    transition: opacity 0.3s, text-shadow 0.3s;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
 }
 
 .home-link:hover {
-    opacity: 0.8;
-    text-shadow: 0 0 10px #00ff00;
+    background: #00ff00;
+    color: #000000;
+    text-shadow: none;
 }
 
 header p {
     font-size: 1.1rem;
     opacity: 0.9;
-    color: #99ff99;
+    color: #cccccc;
+    text-align: center;
 }
 
 /* Navigation */
 nav {
-    background: #001100;
+    background: #000000;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #004400;
+    border-bottom: 1px solid #00ff00;
+    backdrop-filter: blur(10px);
 }
 
 nav ul {
     display: flex;
     list-style: none;
     padding: 1rem 0;
+    justify-content: center;
 }
 
 nav li {
-    margin-right: 2rem;
+    margin: 0 1.5rem;
 }
 
 nav a {
-    color: #00ff00;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition: all 0.3s ease;
+    padding: 5px 15px;
+    border: 1px solid transparent;
 }
 
 nav a:hover {
-    color: #99ff99;
-    text-shadow: 0 0 5px #00ff00;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.1);
 }
 
 /* Buttons */
 .btn {
     display: inline-block;
-    background: #002200;
+    background: #000000;
     color: #00ff00;
     padding: 0.8rem 1.5rem;
-    border-radius: 0; /* Square edges for terminal feel */
+    border-radius: 2px;
     text-decoration: none;
-    font-weight: 500;
-    transition: background 0.3s, box-shadow 0.3s;
-    border: 1px solid #00cc00;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #00ff00;
     font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn:hover {
-    background: #003300;
-    box-shadow: 0 0 10px #00ff00;
-    color: #00ff00;
+    background: #00ff00;
+    color: #000000;
+    box-shadow: 0 0 15px #00ff00;
+    transform: translateY(-2px);
 }
 
 .btn-small {
     padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .btn.disabled {
-    background: #002200;
-    color: #005500;
+    background: #222222;
+    color: #555555;
     cursor: not-allowed;
-    border: 1px solid #005500;
+    border: 2px solid #555555;
 }
 
 .btn.disabled:hover {
     box-shadow: none;
-    background: #002200;
+    background: #222222;
+    transform: none;
 }
 
 /* Current Level Section */
 .current-level {
-    background: #001100;
-    border-radius: 0;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
     padding: 2rem;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
     margin-bottom: 2rem;
-    border: 1px solid #004400;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
 .progress {
-    background: #002200;
-    border-radius: 0;
-    height: 20px;
+    background: #111111;
+    border-radius: 2px;
+    height: 25px;
     margin: 1rem 0;
     overflow: hidden;
-    border: 1px solid #004400;
+    border: 1px solid #333333;
 }
 
 .progress-bar {
-    background: linear-gradient(90deg, #00aa00, #00ff00);
+    background: linear-gradient(90deg, #00aa00, #00ff00, #00aa00);
     height: 100%;
     border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #001100;
+    color: #000000;
     font-size: 0.8rem;
     font-weight: bold;
     text-shadow: none;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
 /* Level Grid */
@@ -162,22 +182,39 @@ nav a:hover {
 }
 
 .level-card {
-    background: #001100;
-    border-radius: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
     padding: 1.5rem;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 1px solid #004400;
+    transition: all 0.3s ease;
+    border: 1px solid #333333;
+    position: relative;
+    overflow: hidden;
+}
+
+.level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.level-card:hover::before {
+    left: 100%;
 }
 
 .level-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    border: 1px solid #00ff00;
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
 }
 
 .level-card.current {
     border: 2px solid #00ff00;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 }
 
 .level-header {
@@ -188,34 +225,35 @@ nav a:hover {
 }
 
 .level-header h3 {
-    color: #00ff00;
+    color: #ffffff;
     margin: 0;
+    font-size: 1.2rem;
 }
 
 .status {
     padding: 0.3rem 0.8rem;
-    border-radius: 0;
-    font-size: 0.8rem;
+    border-radius: 2px;
+    font-size: 0.7rem;
     font-weight: bold;
     border: 1px solid;
 }
 
 .status.completed {
-    background: #002200;
+    background: rgba(0, 255, 0, 0.1);
     color: #00ff00;
     border-color: #00ff00;
 }
 
 .status.in-progress {
-    background: #002200;
-    color: #ffff00; /* Yellow for in-progress */
+    background: rgba(255, 255, 0, 0.1);
+    color: #ffff00;
     border-color: #ffff00;
 }
 
 .status.pending {
-    background: #002200;
-    color: #888888;
-    border-color: #444444;
+    background: rgba(255, 255, 255, 0.1);
+    color: #aaaaaa;
+    border-color: #666666;
 }
 
 .level-actions {
@@ -224,11 +262,11 @@ nav a:hover {
 
 /* Level Content */
 .level-content {
-    background: #001100;
-    border-radius: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
     padding: 2rem;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
-    border: 1px solid #004400;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
 .level-nav {
@@ -239,19 +277,19 @@ nav a:hover {
 
 .level-status {
     padding: 0.5rem 1rem;
-    border-radius: 0;
+    border-radius: 2px;
     font-weight: bold;
     border: 1px solid;
 }
 
 .level-status.completed {
-    background: #002200;
+    background: rgba(0, 255, 0, 0.1);
     color: #00ff00;
     border-color: #00ff00;
 }
 
 .level-status.in-progress {
-    background: #002200;
+    background: rgba(255, 255, 0, 0.1);
     color: #ffff00;
     border-color: #ffff00;
 }
@@ -265,11 +303,11 @@ nav a:hover {
 }
 
 .info-item {
-    background: #002200;
+    background: rgba(0, 20, 0, 0.3);
     padding: 1rem;
-    border-radius: 0;
+    border-radius: 2px;
     border-left: 4px solid #00ff00;
-    color: #99ff99;
+    color: #cccccc;
 }
 
 .info-item strong {
@@ -279,22 +317,24 @@ nav a:hover {
 /* Steps */
 .step {
     margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 4px solid #00ff00;
 }
 
 .step h3 {
     color: #00ff00;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #004400;
-    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
 }
 
 .code-block {
     background: #000000;
-    border-radius: 0;
+    border-radius: 2px;
     padding: 1rem;
     margin: 1rem 0;
     overflow-x: auto;
-    border: 1px solid #004400;
+    border: 1px solid #00ff00;
     box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
 }
 
@@ -319,17 +359,22 @@ code {
 }
 
 .resource-card {
-    background: #001100;
+    background: rgba(0, 0, 0, 0.8);
     padding: 1.5rem;
-    border-radius: 0;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
-    border: 1px solid #004400;
+    border-radius: 2px;
+    border: 1px solid #333333;
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover {
+    border: 1px solid #00ff00;
+    transform: translateY(-3px);
 }
 
 .resource-card h3 {
     color: #00ff00;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #004400;
+    border-bottom: 1px solid #333333;
     padding-bottom: 0.5rem;
 }
 
@@ -339,169 +384,134 @@ code {
 
 .resource-card li {
     margin-bottom: 0.5rem;
+    color: #cccccc;
 }
 
 .resource-card a {
-    color: #99ff99;
+    color: #00ff00;
     text-decoration: none;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted #00ff00;
 }
 
 .resource-card a:hover {
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+    color: #ffffff;
+    border-bottom: 1px solid #00ff00;
 }
 
 /* Footer */
 footer {
-    background: #001100;
-    color: #99ff99;
+    background: #000000;
+    color: #cccccc;
     text-align: center;
     padding: 2rem 0;
     margin-top: 3rem;
-    border-top: 1px solid #004400;
+    border-top: 1px solid #00ff00;
 }
 
 footer a {
     color: #00ff00;
     text-decoration: none;
-    transition: text-shadow 0.3s;
+    transition: all 0.3s ease;
 }
 
 footer a:hover {
+    color: #ffffff;
     text-shadow: 0 0 5px #00ff00;
 }
 
 /* Additional styles for level pages */
-.prerequisites {
-    background: #002200;
+.prerequisites, .troubleshooting, .common-mistakes, .tips {
     padding: 1.5rem;
-    border-radius: 0;
+    border-radius: 2px;
     margin: 2rem 0;
-    border-left: 4px solid #ffff00;
-    border: 1px solid #444400;
+    border: 1px solid;
+}
+
+.prerequisites {
+    background: rgba(255, 255, 0, 0.05);
+    border-color: #ffff00;
 }
 
 .prerequisites h2 {
-    border-bottom: none;
-    margin-top: 0;
     color: #ffff00;
 }
 
-.prerequisites ul {
-    margin-top: 1rem;
+.troubleshooting, .common-mistakes {
+    background: rgba(255, 0, 0, 0.05);
+    border-color: #ff4444;
 }
 
-.prerequisites li {
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    color: #99ff99;
-}
-
-.troubleshooting {
-    background: #002200;
-    padding: 1.5rem;
-    border-radius: 0;
-    margin: 2rem 0;
-    border-left: 4px solid #ff4444;
-    border: 1px solid #440000;
-}
-
-.troubleshooting h2 {
-    border-bottom: none;
-    margin-top: 0;
+.troubleshooting h2, .common-mistakes h2 {
     color: #ff6666;
-}
-
-.issue {
-    margin-bottom: 1.5rem;
-}
-
-.issue h3 {
-    color: #ff6666;
-    margin-bottom: 0.5rem;
-}
-
-.issue ul {
-    margin-top: 0.5rem;
-}
-
-.issue li {
-    margin-bottom: 0.3rem;
-    padding-left: 0.5rem;
-    color: #ff9999;
-}
-
-.common-mistakes {
-    background: #002200;
-    padding: 1.5rem;
-    border-radius: 0;
-    margin: 2rem 0;
-    border-left: 4px solid #ff4444;
-    border: 1px solid #440000;
-}
-
-.common-mistakes h2 {
-    border-bottom: none;
-    margin-top: 0;
-    color: #ff6666;
-}
-
-.common-mistakes ul {
-    margin-top: 1rem;
-}
-
-.common-mistakes li {
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    color: #ff9999;
 }
 
 .tips {
-    background: #002200;
-    padding: 1.5rem;
-    border-radius: 0;
-    margin: 2rem 0;
-    border-left: 4px solid #00ffff;
-    border: 1px solid #004444;
+    background: rgba(0, 255, 255, 0.05);
+    border-color: #00ffff;
 }
 
 .tips h2 {
-    border-bottom: none;
-    margin-top: 0;
     color: #00ffff;
 }
 
-.tips ul {
+.prerequisites ul, .troubleshooting ul, .common-mistakes ul, .tips ul {
     margin-top: 1rem;
 }
 
-.tips li {
+.prerequisites li, .troubleshooting li, .common-mistakes li, .tips li {
     margin-bottom: 0.5rem;
     padding-left: 0.5rem;
-    color: #99ffff;
+}
+
+.prerequisites li {
+    color: #ffffaa;
+}
+
+.troubleshooting li, .common-mistakes li {
+    color: #ffaaaa;
+}
+
+.tips li {
+    color: #aaffff;
 }
 
 .explanation h3 {
     color: #00ff00;
     margin: 1.5rem 0 1rem 0;
     font-size: 1.3rem;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 0.5rem;
 }
 
 /* Terminal cursor effect for headers */
-h1, h2, h3 {
+h1, h2 {
     position: relative;
+    display: inline-block;
 }
 
-h1::after, h2::after, h3::after {
-    content: '|';
+h1::after, h2::after {
+    content: '_';
     animation: blink 1s infinite;
-    margin-left: 2px;
+    margin-left: 5px;
+    color: #00ff00;
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+/* Matrix rain effect in background */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.03;
 }
 
 /* Responsive Design */
@@ -533,27 +543,24 @@ h1::after, h2::after, h3::after {
     }
     
     /* Remove cursor animation on mobile for better performance */
-    h1::after, h2::after, h3::after {
+    h1::after, h2::after {
         content: '';
         animation: none;
     }
 }
 
-/* Scanline effect for that authentic terminal feel */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        transparent 50%,
-        rgba(0, 20, 0, 0.1) 50%
-    );
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.3;
+/* Flashy elements for emphasis */
+.flash {
+    animation: flash 2s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.highlight {
+    background: rgba(0, 255, 0, 0.1);
+    padding: 2px 5px;
+    border: 1px solid #00ff00;
 }
