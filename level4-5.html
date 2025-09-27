@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4 → Level 5 Solution - Bandit Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 4 → Level 5 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 4 → Level 5</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit4
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> 2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the only <strong>human-readable file</strong> in the <strong>inhere</strong> directory.</p>
+                <p><strong>Challenge:</strong> The directory contains multiple files with different file types. Only one file is human-readable ASCII text.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit4</h3>
+                    <p>Use the password from Level 3 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit4@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Navigate to the inhere Directory</h3>
+                    <p>Change into the inhere directory:</p>
+                    <div class="code-block">
+                        <pre><code>cd inhere</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: List Files</h3>
+                    <p>See what files are available:</p>
+                    <div class="code-block">
+                        <pre><code>ls</code></pre>
+                    </div>
+                    <p>You should see multiple files named with dashes: <code>-file00</code>, <code>-file01</code>, etc.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Check File Types (Method 1 - file command)</h3>
+                    <p>Use the <code>file</code> command to identify file types:</p>
+                    <div class="code-block">
+                        <pre><code>file ./*</code></pre>
+                    </div>
+                    <p>Output will show something like:</p>
+                    <div class="code-block">
+                        <pre><code>./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: data
+./-file07: ASCII text
+./-file08: data
+./-file09: data</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Read the Human-Readable File</h3>
+                    <p>Read the file that shows "ASCII text":</p>
+                    <div class="code-block">
+                        <pre><code>cat ./-file07</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Get the Password</h3>
+                    <p>The file contains the password for Level 5:</p>
+                    <div class="code-block">
+                        <pre><code>lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using grep to Find Text Files</h3>
+                    <p>Search for files containing text:</p>
+                    <div class="code-block">
+                        <pre><code>grep -r .</code></pre>
+                    </div>
+                    <p>This will search recursively and show content of readable files.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using strings command</h3>
+                    <p>Check each file for readable strings:</p>
+                    <div class="code-block">
+                        <pre><code>for f in ./*; do echo "=== $f ==="; strings "$f"; done</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Quick Manual Check</h3>
+                    <p>Since there are only 10 files, you can quickly check each one:</p>
+                    <div class="code-block">
+                        <pre><code>cat ./-file00
+cat ./-file01
+cat ./-file02
+# ... until you find the readable one</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level teaches you about file types and how to identify them.</p>
+                
+                <h3>File Command Explained:</h3>
+                <ul>
+                    <li>The <code>file</code> command determines file type by checking magic numbers</li>
+                    <li>It can distinguish between text, binary, data, and other file types</li>
+                    <li><code>file ./*</code> checks all files in the current directory</li>
+                </ul>
+
+                <h3>Why Some Files Aren't Readable:</h3>
+                <ul>
+                    <li>Binary files contain non-printable characters</li>
+                    <li>Data files might be in specific formats</li>
+                    <li>Only ASCII text files display properly with <code>cat</code></li>
+                </ul>
+
+                <h3>Wildcard Usage:</h3>
+                <ul>
+                    <li><code>./*</code> matches all files in current directory</li>
+                    <li>Using <code>./</code> prefix helps with files starting with dashes</li>
+                    <li>Alternative: <code>file *</code> also works in most cases</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Forgetting the <code>./</code> prefix:</strong> Files starting with dashes might be interpreted as command options</li>
+                    <li><strong>Not checking all files:</strong> Assuming the first file is readable</li>
+                    <li><strong>Misreading file output:</strong> Look specifically for "ASCII text"</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>You can use <code>file ./* | grep text</code> to filter only text files</li>
+                    <li>The <code>strings</code> command can extract readable text from binary files</li>
+                    <li>Use <code>head</code> or <code>less</code> to preview files without displaying all content</li>
+                    <li>Tab completion works: type <code>cat ./-f</code> then press Tab multiple times</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to Level 5:</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit5@bandit.labs.overthewire.org -p 2220
+Password: lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</code></pre>
+                </div>
+                <p>In Level 5, you'll need to find a file with specific properties (size, ownership, etc.).</p>
+                <a href="level5.html" class="btn">Go to Level 5 Solution →</a>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="level3-4.html" class="btn btn-small">← Previous Level</a>
+            <a href="level5-6.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
