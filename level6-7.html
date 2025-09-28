@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 6 → Level 7 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css">s
+</head>
+<body>
+    <div class="scan-lines"></div>
+    <div class="bestii-badge">🔥 FOR MY BESTII 🔥</div>
+
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← BANDIT SOLUTIONS</a></h1>
+            <p>Level 6 → Level 7 Ultimate Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="index.html#current">🎯 Current Level</a></li>
+                <li><a href="index.html#solutions">📚 All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="level-nav">
+            <a href="level5.html" class="btn btn-small">← Level 5</a>
+            <a href="level7.html" class="btn btn-small">Level 7 →</a>
+        </div>
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>LEVEL 6 → LEVEL 7</h1>
+                <span class="level-status">MASTERED</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 MISSION INTEL</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>📍 Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>🔌 Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>👤 Username:</strong> bandit6
+                    </div>
+                    <div class="info-item">
+                        <strong>🔑 Password:</strong> P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 MISSION BRIEFING</h2>
+                <p>The password for the next level is stored <strong>somewhere on the server</strong> and has the following properties:</p>
+                <ul>
+                    <li><strong>Owned by user</strong> bandit7</li>
+                    <li><strong>Owned by group</strong> bandit6</li>
+                    <li><strong>33 bytes</strong> in size</li>
+                </ul>
+                <p class="pro-tip"><strong>💡 PRO TIP:</strong> This is your first system-wide search! Think about where files are typically stored in Linux.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 EXECUTION PLAN</h2>
+                
+                <div class="step">
+                    <h3>🚀 Step 1: Access the System</h3>
+                    <p>Connect to the Bandit6 server:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit6@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>🔍 Step 2: System-Wide Search</h3>
+                    <p>Use the find command starting from root directory:</p>
+                    <div class="code-block">
+                        <pre><code>find / -user bandit7 -group bandit6 -size 33c 2>/dev/null</code></pre>
+                    </div>
+                    <p><strong>Command breakdown:</strong></p>
+                    <ul>
+                        <li><code>find /</code> - Search from root directory (entire system)</li>
+                        <li><code>-user bandit7</code> - File owned by user bandit7</li>
+                        <li><code>-group bandit6</code> - File owned by group bandit6</li>
+                        <li><code>-size 33c</code> - File size exactly 33 bytes</li>
+                        <li><code>2>/dev/null</code> - Hide permission denied errors</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>📄 Step 3: Locate the Target</h3>
+                    <p>The command will return the file path:</p>
+                    <div class="code-block">
+                        <pre><code>/var/lib/dpkg/info/bandit7.password</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>🔓 Step 4: Extract the Password</h3>
+                    <p>Read the discovered file:</p>
+                    <div class="code-block">
+                        <pre><code>cat /var/lib/dpkg/info/bandit7.password</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>🎉 Step 5: Mission Accomplished!</h3>
+                    <p>The file contains the password for Level 7:</p>
+                    <div class="code-block">
+                        <pre><code>z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 ALTERNATIVE STRATEGIES</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using sudo for Clean Search</h3>
+                    <p>If you want to avoid permission errors:</p>
+                    <div class="code-block">
+                        <pre><code>sudo find / -user bandit7 -group bandit6 -size 33c</code></pre>
+                    </div>
+                    <p><strong>Note:</strong> This might not work on all systems due to sudo restrictions.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Step-by-Step Directory Search</h3>
+                    <p>Search common directories manually:</p>
+                    <div class="code-block">
+                        <pre><code>find /etc -user bandit7 -group bandit6 -size 33c 2>/dev/null
+find /var -user bandit7 -group bandit6 -size 33c 2>/dev/null
+find /home -user bandit7 -group bandit6 -size 33c 2>/dev/null</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <div class="explanation-box">
+                <h2>💡 MISSION ANALYSIS</h2>
+                <p>This level teaches you <strong>system-wide file searching</strong> and <strong>error handling</strong> in Linux.</p>
+                
+                <h3>Key Concepts Mastered:</h3>
+                <ul>
+                    <li><strong>Root Directory Search:</strong> Using <code>/</code> to search the entire filesystem</li>
+                    <li><strong>File Ownership:</strong> Combining user and group filters</li>
+                    <li><strong>Error Redirection:</strong> Using <code>2>/dev/null</code> to hide permission errors</li>
+                    <li><strong>System Directories:</strong> Understanding where files are stored in Linux</li>
+                </ul>
+
+                <h3>Why 2>/dev/null is Essential:</h3>
+                <p>When searching from root, you'll encounter many directories you don't have permission to access. The <code>2>/dev/null</code> part redirects all error messages to "nowhere", giving you a clean output with only the successful results.</p>
+            </div>
+
+            <section class="warning">
+                <h3>⚠️ CRITICAL WARNING</h3>
+                <p><strong>NEVER run <code>find /</code> without <code>2>/dev/null</code> on production systems!</strong> The massive amount of permission errors can make the system unusable and might alert system administrators.</p>
+            </section>
+
+            <section class="pro-tip">
+                <h3>🚀 PRO MOVES FOR BESTII</h3>
+                <ul>
+                    <li>You can chain multiple conditions: <code>find / -user bandit7 -group bandit6 -size 33c -name "*.password" 2>/dev/null</code></li>
+                    <li>Use <code>-exec</code> to directly process found files: <code>find / -user bandit7 -group bandit6 -size 33c -exec cat {} \; 2>/dev/null</code></li>
+                    <li>For faster searches, exclude virtual filesystems: <code>find / -path /proc -prune -o -user bandit7 -group bandit6 -size 33c -print 2>/dev/null</code></li>
+                    <li>Remember: <code>/dev/null</code> is the Linux "black hole" - anything sent there disappears forever</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>🎯 NEXT MISSION: LEVEL 7</h2>
+                <p>Ready for the next challenge, bestii? Level 7 awaits!</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit7@bandit.labs.overthewire.org -p 2220
+Password: z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</code></pre>
+                </div>
+                <p>In Level 7, you'll search for specific text within a file. Get ready to use <code>grep</code> like a pro!</p>
+                <a href="level7.html" class="btn">ACCEPT NEXT MISSION →</a>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="level5.html" class="btn btn-small">← Level 5</a>
+            <a href="level7.html" class="btn btn-small">Level 7 →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Bandit Solutions - Made with 💚 for my Bestii</p>
+            <p><a href="index.html">Return to Command Center</a></p>
+        </div>
+    </footer>
+</body>
+</html>
