@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5 → Level 6 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 5 → Level 6 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+       
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 5 → Level 6</h1>
+                <span class="level-status">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.
+                        org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit5
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> lrIWWI6bB37kxfiCQZqUdOI
+                        Yfr6eEeqR
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in a file somewhere under the <strong>inhere</strong> directory and has the following properties:</p>
+                <ul>
+                    <li>Human-readable</li>
+                    <li>1033 bytes in size</li>
+                    <li>Not executable</li>
+                </ul>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit5</h3>
+                    <p>Use the password from Level 4 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit5@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Navigate to the inhere Directory</h3>
+                    <p>Change into the inhere directory:</p>
+                    <div class="code-block">
+                        <pre><code>cd inhere</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Use find Command with Specific Criteria</h3>
+                    <p>Search for files with the exact properties:</p>
+                    <div class="code-block">
+                        <pre><code>find . -type f -size 1033c ! -executable</code></pre>
+                    </div>
+                    <p><strong>Command breakdown:</strong></p>
+                    <ul>
+                        <li><code>find .</code> - Search in current directory and subdirectories</li>
+                        <li><code>-type f</code> - Only look for files (not directories)</li>
+                        <li><code>-size 1033c</code> - File size exactly 1033 bytes</li>
+                        <li><code>! -executable</code> - Not executable</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Read the Found File</h3>
+                    <p>The find command will return the path to the file. Read it:</p>
+                    <div class="code-block">
+                        <pre><code>cat ./maybehere07/.file2</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Get the Password</h3>
+                    <p>The file contains the password for Level 6:</p>
+                    <div class="code-block">
+                        <pre><code>P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using file command with find</h3>
+                    <p>Combine find with file to verify it's human-readable:</p>
+                    <div class="code-block">
+                        <pre><code>find . -type f -size 1033c ! -executable -exec file {} +</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Manual search with ls and file</h3>
+                    <p>If you want to explore manually:</p>
+                    <div class="code-block">
+                        <pre><code>ls -la
+cd maybehere00
+ls -la
+file .file2
+# Check size with: ls -la .file2
+# Repeat for each directory</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces advanced file searching with the <code>find</code> command.</p>
+                
+                <h3>Find Command Options:</h3>
+                <ul>
+                    <li><strong>-type f</strong> - Search for files only</li>
+                    <li><strong>-size 1033c</strong> - Size in bytes (c = bytes, k = kilobytes, M = megabytes)</li>
+                    <li><strong>! -executable</strong> - NOT executable (the ! negates the condition)</li>
+                    <li><strong>-exec</strong> - Execute a command on found files</li>
+                </ul>
+
+                <h3>File Size Notation:</h3>
+                <ul>
+                    <li><code>1033c</code> - Exactly 1033 bytes</li>
+                    <li><code>+1033c</code> - Larger than 1033 bytes</li>
+                    <li><code>-1033c</code> - Smaller than 1033 bytes</li>
+                    <li><code>1033k</code> - 1033 kilobytes</li>
+                </ul>
+
+                <h3>Why These Specifics Matter:</h3>
+                <ul>
+                    <li>There are many files in subdirectories</li>
+                    <li>Multiple files might have similar properties</li>
+                    <li>The exact combination makes the file unique</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Wrong size unit:</strong> Using 1033 without 'c' might interpret as blocks</li>
+                    <li><strong>Forgetting the negation:</strong> Using <code>-executable</code> instead of <code>! -executable</code></li>
+                    <li><strong>Not searching recursively:</strong> The file is in a subdirectory</li>
+                    <li><strong>Case sensitivity:</strong> Options are case-sensitive</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>You can chain multiple conditions: <code>find . -type f -size 1033c ! -executable -name "*.txt"</code></li>
+                    <li>Use <code>find . -ls</code> to see detailed information about found files</li>
+                    <li>The <code>-exec</code> option can directly read the file: <code>find . -type f -size 1033c ! -executable -exec cat {} \;</code></li>
+                    <li>Practice with different find options to become proficient</li>
+                </ul>
+            </section>
+
+            
+        </article>
+
+        <div class="level-nav">
+            <a href="level4-5.html" class="btn btn-small">← Previous Level</a>
+            <a href="level6-7.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
