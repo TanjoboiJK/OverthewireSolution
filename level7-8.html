@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 7 → Level 8 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 7 → Level 8 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+       
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 7 → Level 8</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire
+                        .org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit7
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> z7WtoNQU2XfjmMtWA8u5rN4
+                        vzqu4v99S
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong> next to the word <strong>millionth</strong>.</p>
+                <p><strong>Challenge:</strong> The data.txt file is very large. You need to efficiently find the line containing "millionth" and extract the password.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit7</h3>
+                    <p>Use the password from Level 6 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit7@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what we're dealing with:</p>
+                    <div class="code-block">
+                        <pre><code>ls -lh data.txt</code></pre>
+                    </div>
+                    <p>You'll see the file is quite large (several MB).</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Use grep to Find "millionth"</h3>
+                    <p>Search for the word "millionth" in the file:</p>
+                    <div class="code-block">
+                        <pre><code>grep "millionth" data.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Get the Password</h3>
+                    <p>The output will show the line containing "millionth" and the password:</p>
+                    <div class="code-block">
+                        <pre><code>millionth TESKZC0XvTetK0S9xNwm25STk5iWrBvP</code></pre>
+                    </div>
+                    <p>The password for Level 8 is: <code>TESKZC0XvTetK0S9xNwm25STk5iWrBvP</code></p>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using grep with Context</h3>
+                    <p>If you want to see lines around the match for context:</p>
+                    <div class="code-block">
+                        <pre><code>grep -C 2 "millionth" data.txt</code></pre>
+                    </div>
+                    <p>This shows 2 lines before and after the matching line.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using awk</h3>
+                    <p>You can also use awk to find and extract the password:</p>
+                    <div class="code-block">
+                        <pre><code>awk '/millionth/ {print $2}' data.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Using sed</h3>
+                    <p>sed can also extract the specific line:</p>
+                    <div class="code-block">
+                        <pre><code>sed -n '/millionth/p' data.txt</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces text processing with grep and dealing with large files efficiently.</p>
+                
+                <h3>grep Command Explained:</h3>
+                <ul>
+                    <li><strong>grep</strong> - Global Regular Expression Print</li>
+                    <li>Searches for patterns in files</li>
+                    <li>Very efficient even with large files</li>
+                    <li>Returns only matching lines</li>
+                </ul>
+
+                <h3>Why grep is Efficient:</h3>
+                <ul>
+                    <li>Doesn't load entire file into memory</li>
+                    <li>Processes files line by line</li>
+                    <li>Stops searching after finding the match (with default options)</li>
+                    <li>Perfect for large log files and datasets</li>
+                </ul>
+
+                <h3>Common grep Options:</h3>
+                <ul>
+                    <li><strong>-i</strong> - Case insensitive search</li>
+                    <li><strong>-n</strong> - Show line numbers</li>
+                    <li><strong>-C num</strong> - Show context lines around match</li>
+                    <li><strong>-v</strong> - Invert match (show non-matching lines)</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Wrong search term:</strong> Misspelling "millionth"</li>
+                    <li><strong>Case sensitivity:</strong> "Millionth" vs "millionth"</li>
+                    <li><strong>Trying to open the file:</strong> Using cat or less on large files can be slow</li>
+                    <li><strong>Not using quotes:</strong> Always quote your search patterns</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Use <code>grep -i</code> for case-insensitive searches</li>
+                    <li>Combine with <code>wc -l</code> to count matches: <code>grep "pattern" file | wc -l</code></li>
+                    <li>Use regular expressions for complex patterns</li>
+                    <li>You can grep multiple files: <code>grep "pattern" *.txt</code></li>
+                    <li>Use <code>grep -r</code> for recursive directory searches</li>
+                </ul>
+            </section>
+
+            <section class="practice-exercise">
+                <h2>💪 Practice Exercise</h2>
+                <p>Try these grep exercises to improve your skills:</p>
+                <div class="code-block">
+                    <pre><code># Find all lines starting with "password"
+grep "^password" data.txt
+
+# Find lines ending with ".com"
+grep "\.com$" data.txt
+
+# Find lines containing numbers
+grep "[0-9]" data.txt
+
+# Count how many times "error" appears
+grep -c "error" data.txt</code></pre>
+                </div>
+            </section>
+
+          
+        </article>
+
+        <div class="level-nav">
+            <a href="level6-7.html" class="btn btn-small">← Previous Level</a>
+            <a href="level8-9.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
