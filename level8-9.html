@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 8 → Level 9 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 8 → Level 9 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+       
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 8 → Level 9</h1>
+                <span class="level-status">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire
+                        .org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit8
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> TESKZC0XvTetK0S9xNwm25S
+                        Tk5iWrBvP
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong> and is the only line of text that occurs <strong>only once</strong>.</p>
+                <p><strong>Challenge:</strong> The file contains many duplicate lines. You need to find the single unique line.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit8</h3>
+                    <p>Use the password from Level 7 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit8@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>TESKZC0XvTetK0S9xNwm25STk5iWrBvP</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what we're dealing with:</p>
+                    <div class="code-block">
+                        <pre><code>ls -lh data.txt
+head data.txt</code></pre>
+                    </div>
+                    <p>You'll see the file contains many lines, most of which are duplicates.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Sort and Find Unique Lines</h3>
+                    <p>Use sort and uniq commands to find the line that appears only once:</p>
+                    <div class="code-block">
+                        <pre><code>sort data.txt | uniq -u</code></pre>
+                    </div>
+                    <p><strong>Command breakdown:</strong></p>
+                    <ul>
+                        <li><code>sort</code> - Sorts the lines alphabetically</li>
+                        <li><code>uniq -u</code> - Shows only unique lines (that appear exactly once)</li>
+                        <li><code>|</code> - Pipe sends output from sort to uniq</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Get the Password</h3>
+                    <p>The command will output the single unique line, which is the password for Level 9:</p>
+                    <div class="code-block">
+                        <pre><code>EN632PlfYiZbn3PhVK3XOGSlNInNE00t</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using uniq with count</h3>
+                    <p>First show all lines with their counts, then find the one with count 1:</p>
+                    <div class="code-block">
+                        <pre><code>sort data.txt | uniq -c | grep "1 "</code></pre>
+                    </div>
+                    <p>This shows the count before each line and filters for lines that appear once.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using awk</h3>
+                    <p>You can use awk to count occurrences and print unique lines:</p>
+                    <div class="code-block">
+                        <pre><code>awk '{count[$0]++} END {for (line in count) if (count[line] == 1) print line}' data.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Step by step verification</h3>
+                    <p>If you want to see the intermediate steps:</p>
+                    <div class="code-block">
+                        <pre><code># See sorted output
+sort data.txt
+
+# See lines with counts
+sort data.txt | uniq -c
+
+# Find the line with count 1
+sort data.txt | uniq -c | grep -w 1</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level teaches text processing with sort and uniq commands to find unique entries in data.</p>
+                
+                <h3>sort Command:</h3>
+                <ul>
+                    <li><strong>sort</strong> - Arranges lines in alphabetical or numerical order</li>
+                    <li>Required before using uniq because uniq only compares adjacent lines</li>
+                    <li>Makes duplicate lines appear next to each other</li>
+                </ul>
+
+                <h3>uniq Command Options:</h3>
+                <ul>
+                    <li><strong>uniq -u</strong> - Shows only unique lines (appear exactly once)</li>
+                    <li><strong>uniq -d</strong> - Shows only duplicate lines (appear more than once)</li>
+                    <li><strong>uniq -c</strong> - Shows counts before each line</li>
+                    <li><strong>uniq -i</strong> - Case insensitive comparison</li>
+                </ul>
+
+                <h3>Why Sorting is Necessary:</h3>
+                <ul>
+                    <li>uniq only compares adjacent lines in the input</li>
+                    <li>Without sorting, duplicates might not be next to each other</li>
+                    <li>Sorting groups all identical lines together</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Forgetting to sort:</strong> Using uniq without sort first</li>
+                    <li><strong>Wrong uniq option:</strong> Using -d instead of -u</li>
+                    <li><strong>Case sensitivity:</strong> Lines with different cases are considered different</li>
+                    <li><strong>Whitespace:</strong> Extra spaces can make lines appear different</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Use <code>sort -u</code> to remove duplicates (simpler alternative to sort | uniq)</li>
+                    <li>Combine with <code>wc -l</code> to count unique lines: <code>sort data.txt | uniq | wc -l</code></li>
+                    <li>Use <code>uniq -i</code> for case-insensitive comparison</li>
+                    <li>You can sort numerically with <code>sort -n</code></li>
+                    <li>Reverse sort with <code>sort -r</code></li>
+                </ul>
+            </section>
+        
+        </article>
+
+        <div class="level-nav">
+            <a href="level7-8.html" class="btn btn-small">← Previous Level</a>
+            <a href="level9-10.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
