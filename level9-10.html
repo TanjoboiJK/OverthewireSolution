@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 9 → Level 10 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css" >
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 9 → Level 10 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+       
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 9 → Level 10</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire
+                        .org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit9
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> EN632PlfYiZbn3PhVK3XOGS
+                        lNInNE00t
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong> in one of the few human-readable strings, preceded by several <strong>'='</strong> characters.</p>
+                <p><strong>Challenge:</strong> The file is a binary file containing both text and non-text data. You need to extract human-readable strings and find the one with multiple '=' characters.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit9</h3>
+                    <p>Use the password from Level 8 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit9@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>EN632PlfYiZbn3PhVK3XOGSlNInNE00t</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what type of file we're dealing with:</p>
+                    <div class="code-block">
+                        <pre><code>file data.txt
+ls -lh data.txt</code></pre>
+                    </div>
+                    <p>You'll see it's a binary data file, not a plain text file.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Use strings to Extract Human-Readable Text</h3>
+                    <p>The strings command extracts printable character sequences from binary files:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt</code></pre>
+                    </div>
+                    <p>This will output many lines of text mixed with garbage characters.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Find Lines with Multiple '=' Characters</h3>
+                    <p>Pipe the output to grep to find lines containing multiple equals signs:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt | grep "===="</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Get the Password</h3>
+                    <p>The command will output the line containing multiple '=' characters followed by the password:</p>
+                    <div class="code-block">
+                        <pre><code>========== the*2i4"</code></pre>
+                    </div>
+                    <p>Wait, that doesn't look right. Let's try a different approach...</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Better Pattern Matching</h3>
+                    <p>Look for lines that start with multiple '=' characters:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt | grep "^===="</code></pre>
+                    </div>
+                    <p>Or try looking for any line with several '=' characters:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt | grep -E "={5,}"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 7: Success!</h3>
+                    <p>One of these methods will reveal the password:</p>
+                    <div class="code-block">
+                        <pre><code>========== G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s</code></pre>
+                    </div>
+                    <p>The password for Level 10 is: <code>G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s</code></p>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using strings with grep for password pattern</h3>
+                    <p>Look for lines that might contain passwords (mix of letters and numbers):</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt | grep -E "[a-zA-Z0-9]{32}"</code></pre>
+                    </div>
+                    <p>This looks for 32-character strings of letters and numbers, which is the password format.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Manual inspection with less</h3>
+                    <p>You can browse through the strings output manually:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt | less</code></pre>
+                    </div>
+                    <p>Use <code>/====</code> to search for equals signs, then navigate with arrow keys.</p>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Save strings to file and analyze</h3>
+                    <p>Save the output to a file for easier analysis:</p>
+                    <div class="code-block">
+                        <pre><code>strings data.txt > output.txt
+grep "====" output.txt</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces working with binary files and extracting human-readable content.</p>
+                
+                <h3>strings Command:</h3>
+                <ul>
+                    <li><strong>strings</strong> - Extracts printable character sequences from binary files</li>
+                    <li>Looks for sequences of 4 or more printable characters (by default)</li>
+                    <li>Useful for analyzing binaries, finding embedded text, or recovering text from corrupted files</li>
+                </ul>
+
+                <h3>grep with Regular Expressions:</h3>
+                <ul>
+                    <li><strong>grep "===="</strong> - Looks for lines containing four equals signs</li>
+                    <li><strong>grep "^===="</strong> - Looks for lines starting with four equals signs</li>
+                    <li><strong>grep -E "={5,}"</strong> - Uses extended regex to find 5 or more consecutive equals signs</li>
+                    <li><strong>grep -E "[a-zA-Z0-9]{32}"</strong> - Finds 32-character alphanumeric strings</li>
+                </ul>
+
+                <h3>Why Binary Files Contain Text:</h3>
+                <ul>
+                    <li>Executable files often contain error messages and other text</li>
+                    <li>Data files might have text embedded in binary formats</li>
+                    <li>Compressed or encoded files may have readable portions</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Trying to cat the file:</strong> Binary files can mess up your terminal</li>
+                    <li><strong>Wrong grep pattern:</strong> Not using enough '=' characters in the search</li>
+                    <li><strong>Case sensitivity:</strong> Forgetting that grep is case-sensitive by default</li>
+                    <li><strong>Not using strings:</strong> Trying to grep the binary file directly</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Use <code>strings -n 10</code> to only show strings of 10+ characters (reduces noise)</li>
+                    <li>Combine with <code>head</code> or <code>tail</code> to see partial output: <code>strings data.txt | head -20</code></li>
+                    <li>Use <code>grep -i</code> for case-insensitive searches</li>
+                    <li>You can use <code>hexdump -C</code> to view binary files in hex and ASCII</li>
+                    <li>For very large files, save strings output to a file first</li>
+                </ul>
+            </section>
+
+        </article>
+
+        <div class="level-nav">
+            <a href="level8-9.html" class="btn btn-small">← Previous Level</a>
+            <a href="level10-11.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
