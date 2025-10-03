@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 10 → Level 11 Solution - Bandit Wargame</title>
+    <style>
+        /* Clean Hacker Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #000;
+            padding: 2rem 0;
+            border-bottom: 2px solid #00cc00;
+            text-align: center;
+        }
+
+        .home-link {
+            color: #00cc00;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        header h1 {
+            color: #00cc00;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #aaa;
+        }
+
+        /* Navigation */
+        nav {
+            background: #111;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00cc00;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .level-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background: #000;
+            color: #00cc00;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border: 1px solid #00cc00;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #00cc00;
+            color: #000;
+        }
+
+        .btn-small {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .btn.disabled {
+            color: #666;
+            border-color: #666;
+            cursor: not-allowed;
+        }
+
+        .btn.disabled:hover {
+            background: #000;
+            color: #666;
+        }
+
+        .level-content {
+            background: #111;
+            padding: 2rem;
+            border: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .level-header h1 {
+            color: #00cc00;
+        }
+
+        .level-status {
+            background: #002200;
+            color: #00cc00;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #00cc00;
+            font-size: 0.9rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #00cc00;
+            margin-bottom: 1rem;
+            border-left: 3px solid #00cc00;
+            padding-left: 0.5rem;
+        }
+
+        h3 {
+            color: #ccc;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-item {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-left: 3px solid #00cc00;
+        }
+
+        .info-item strong {
+            color: #00cc00;
+        }
+
+        .step {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 3px solid #00cc00;
+        }
+
+        .code-block {
+            background: #000;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+
+        pre {
+            color: #00cc00;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #00cc00;
+            font-family: 'Courier New', monospace;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .method {
+            background: #1a1a1a;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 3px solid #0077cc;
+        }
+
+        .method h3 {
+            color: #0077cc;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #aaa;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        footer a {
+            color: #00cc00;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .level-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 10 → Level 11 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="level-nav">
+            <a href="level9.html" class="btn btn-small">← Previous Level</a>
+            <a href="level11.html" class="btn btn-small">Next Level →</a>
+        </div>
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 10 → Level 11</h1>
+                <span class="level-status">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit10
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong>, which contains <strong>base64 encoded data</strong>.</p>
+                <p><strong>Challenge:</strong> You need to decode the base64 encoded content to reveal the password.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit10</h3>
+                    <p>Use the password from Level 9 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit10@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what's in the file:</p>
+                    <div class="code-block">
+                        <pre><code>cat data.txt</code></pre>
+                    </div>
+                    <p>You'll see base64 encoded data that looks something like this:</p>
+                    <div class="code-block">
+                        <pre><code>VGhlIHBhc3N3b3JkIGlzIElGeWtQdEtTUjRlSTB2Ymc0T2dSWjlBZ2N0ZytYWk1nMQ==</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Decode the Base64 Data</h3>
+                    <p>Use the base64 command with the -d flag to decode:</p>
+                    <div class="code-block">
+                        <pre><code>base64 -d data.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Get the Password</h3>
+                    <p>The decoded output will reveal the password for Level 11:</p>
+                    <div class="code-block">
+                        <pre><code>The password is 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM</code></pre>
+                    </div>
+                    <p>The password for Level 11 is: <code>6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM</code></p>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using cat with base64</h3>
+                    <p>You can also pipe the file content to base64:</p>
+                    <div class="code-block">
+                        <pre><code>cat data.txt | base64 -d</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using Python</h3>
+                    <p>If base64 command is not available, use Python:</p>
+                    <div class="code-block">
+                        <pre><code>python3 -c "import base64; print(base64.b64decode(open('data.txt').read().strip()).decode())"</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Online decoding (for practice)</h3>
+                    <p>For learning purposes, you can use online base64 decoders, but never use them for real passwords!</p>
+                    <div class="code-block">
+                        <pre><code># Copy the base64 string and paste into an online decoder
+# This is only for educational purposes!</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces base64 encoding and decoding, a common data encoding scheme.</p>
+                
+                <h3>What is Base64?</h3>
+                <ul>
+                    <li><strong>Base64</strong> - A binary-to-text encoding scheme</li>
+                    <li>Converts binary data into ASCII text format</li>
+                    <li>Uses 64 different characters (A-Z, a-z, 0-9, +, /) and = for padding</li>
+                    <li>Commonly used for email attachments, data URLs, and storing binary data in text formats</li>
+                </ul>
+
+                <h3>base64 Command Options:</h3>
+                <ul>
+                    <li><strong>base64 -d</strong> or <strong>base64 --decode</strong> - Decodes base64 data</li>
+                    <li><strong>base64</strong> (without -d) - Encodes data to base64</li>
+                    <li><strong>-w 0</strong> - Disable line wrapping (useful for encoding)</li>
+                    <li><strong>-i</strong> - Ignore non-alphabet characters</li>
+                </ul>
+
+                <h3>Why Use Base64 Encoding?</h3>
+                <ul>
+                    <li>Makes binary data safe for text-based systems</li>
+                    <li>Prevents data corruption during transmission</li>
+                    <li>Allows embedding binary data in XML, JSON, etc.</li>
+                    <li>Used in HTTP Basic Authentication</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Forgetting the -d flag:</strong> Using base64 without -d will encode instead of decode</li>
+                    <li><strong>Wrong command order:</strong> Putting the flag after the filename</li>
+                    <li><strong>Missing file:</strong> Not being in the correct directory</li>
+                    <li><strong>Extra spaces:</strong> Accidentally adding spaces when copying commands</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>You can encode text to base64: <code>echo "hello" | base64</code></li>
+                    <li>Use <code>base64 -d &lt;&lt;&lt; "encoded_string"</code> to decode a string directly</li>
+                    <li>Combine with other commands: <code>base64 -d data.txt | grep password</code></li>
+                    <li>Remember that base64 encoded data always has length divisible by 4 (with padding)</li>
+                    <li>You can recognize base64 by the character set and frequent = padding at the end</li>
+                </ul>
+            </section>
+
+            <section class="practice-exercise">
+                <h2>💪 Practice Exercise</h2>
+                <p>Try these base64 encoding and decoding exercises:</p>
+                <div class="code-block">
+                    <pre><code># Encode a string to base64
+echo "Hello Bandit" | base64
+
+# Decode a base64 string
+echo "SGVsbG8gQmFuZGl0Cg==" | base64 -d
+
+# Encode a file
+echo "Secret password" > secret.txt
+base64 secret.txt
+
+# Decode and save to a file
+echo "U2VjcmV0IHBhc3N3b3JkCg==" | base64 -d > decoded.txt
+cat decoded.txt
+
+# Encode without newline
+echo -n "no newline" | base64</code></pre>
+                </div>
+            </section>
+
+            <section class="real-world">
+                <h2>🌍 Real-World Applications</h2>
+                <p>Base64 encoding is commonly used for:</p>
+                <ul>
+                    <li><strong>Email attachments</strong> - MIME encoding for binary files</li>
+                    <li><strong>Data URLs</strong> - Embedding images in HTML/CSS</li>
+                    <li><strong>API authentication</strong> - HTTP Basic Auth encodes credentials in base64</li>
+                    <li><strong>Storing binary data in JSON/XML</strong> - When text format requires binary data</li>
+                    <li><strong>Cryptography</strong> - Encoding keys and certificates</li>
+                    <li><strong>Web development</strong> - Data transfer between client and server</li>
+                </ul>
+            </section>
+
+            <section class="security-note">
+                <h2>🔒 Security Note</h2>
+                <p><strong>Important:</strong> Base64 is NOT encryption! It's just encoding.</p>
+                <ul>
+                    <li>Base64 provides no security - it's easily reversible</li>
+                    <li>Never use base64 to hide sensitive information</li>
+                    <li>It's like writing something in a different alphabet, not locking it in a safe</li>
+                    <li>For real security, use proper encryption like AES</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to Level 11:</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit11@bandit.labs.overthewire.org -p 2220
+Password: 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM</code></pre>
+                </div>
+                <p>In Level 11, you'll need to decode a ROT13 encoded password.</p>
+                <a href="level11.html" class="btn">Go to Level 11 Solution →</a>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="level9.html" class="btn btn-small">← Previous Level</a>
+            <a href="level11.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
