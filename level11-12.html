@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 11 → Level 12 Solution - Bandit Wargame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 11 → Level 12 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+       
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 11 → Level 12</h1>
+                <span class="level-status completed">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire
+                        .org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit11
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> 6zPeziLdR2RKNdNYFNb6nV
+                        CKzphlXHBM
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong>, where all lowercase (a-z) and uppercase (A-Z) letters have been <strong>rotated by 13 positions</strong> (ROT13 cipher).</p>
+                <p><strong>Challenge:</strong> You need to decode the ROT13 encoded text to reveal the password.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit11</h3>
+                    <p>Use the password from Level 10 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit11@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what's in the file:</p>
+                    <div class="code-block">
+                        <pre><code>cat data.txt</code></pre>
+                    </div>
+                    <p>You'll see ROT13 encoded text that looks garbled:</p>
+                    <div class="code-block">
+                        <pre><code>Gur cnffjbeq vf 5Gr8L4qetPEsPk8htqjhRK8XSP6x2RHh</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Decode the ROT13 Text</h3>
+                    <p>Use the tr command to translate (rotate) the characters:</p>
+                    <div class="code-block">
+                        <pre><code>cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'</code></pre>
+                    </div>
+                    <p><strong>Command breakdown:</strong></p>
+                    <ul>
+                        <li><code>tr</code> - Translate or delete characters</li>
+                        <li><code>'A-Za-z'</code> - The original character set</li>
+                        <li><code>'N-ZA-Mn-za-m'</code> - The rotated character set (ROT13 mapping)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Get the Password</h3>
+                    <p>The decoded output will reveal the password for Level 12:</p>
+                    <div class="code-block">
+                        <pre><code>The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu</code></pre>
+                    </div>
+                    <p>The password for Level 12 is: <code>5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu</code></p>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Using Python</h3>
+                    <p>Python has built-in ROT13 decoding in the codecs module:</p>
+                    <div class="code-block">
+                        <pre><code>python3 -c "import codecs; print(codecs.decode(open('data.txt').read().strip(), 'rot13'))"</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Using Perl</h3>
+                    <p>Perl can also decode ROT13 easily:</p>
+                    <div class="code-block">
+                        <pre><code>perl -pe 'y/A-Za-z/N-ZA-Mn-za-m/' data.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 4: Online ROT13 decoder</h3>
+                    <p>For learning purposes, you can use online ROT13 decoders:</p>
+                    <div class="code-block">
+                        <pre><code># Copy the encoded text and paste into an online ROT13 decoder
+# This is only for educational purposes!</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level introduces the ROT13 cipher, a simple substitution cipher.</p>
+                
+                <h3>What is ROT13?</h3>
+                <ul>
+                    <li><strong>ROT13</strong> - "Rotate by 13 places"</li>
+                    <li>A simple letter substitution cipher that replaces each letter with the 13th letter after it in the alphabet</li>
+                    <li>Since there are 26 letters, applying ROT13 twice returns the original text</li>
+                    <li>ROT13(A) = N, ROT13(B) = O, ROT13(C) = P, etc.</li>
+                </ul>
+
+                <h3>How tr command works for ROT13:</h3>
+                <ul>
+                    <li><code>'A-Za-z'</code> represents all uppercase and lowercase letters</li>
+                    <li><code>'N-ZA-Mn-za-m'</code> maps A→N, B→O, ..., Z→M (and same for lowercase)</li>
+                    <li>This mapping effectively rotates each letter by 13 positions</li>
+                </ul>
+
+                <h3>ROT13 Character Mapping:</h3>
+                <div class="code-block">
+                    <pre><code>Original:  ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+ROT13:    NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm</code></pre>
+                </div>
+
+                <h3>Why ROT13 is Used:</h3>
+                <ul>
+                    <li>Simple obfuscation (not real encryption)</li>
+                    <li>Hiding spoilers in online forums</li>
+                    <li>Concealing offensive content</li>
+                    <li>Educational purposes for learning about ciphers</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Wrong character sets:</strong> Mixing up uppercase and lowercase in tr command</li>
+                    <li><strong>Missing quotes:</strong> Forgetting quotes around the character sets</li>
+                    <li><strong>Wrong rotation:</strong> Using different rotation values instead of 13</li>
+                    <li><strong>Case sensitivity:</strong> Not preserving case in the output</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>You can encode text with the same command: <code>echo "Hello" | tr 'A-Za-z' 'N-ZA-Mn-za-m'</code></li>
+                    <li>ROT13 is its own inverse: encoding and decoding use the same operation</li>
+                    <li>Use <code>tr -d 'a-z'</code> to delete lowercase letters</li>
+                    <li>Combine tr with other commands for complex text processing</li>
+                    <li>Remember that ROT13 only affects letters; numbers and symbols remain unchanged</li>
+                </ul>
+            </section>
+
+            
+        </article>
+
+        <div class="level-nav">
+            <a href="level10-11.html" class="btn btn-small">← Previous Level</a>
+            <a href="level12-13.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
