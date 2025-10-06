@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 12 → Level 13 Solution - Bandit Wargame</title>
+    <link rel="stylesheet"  href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" class="home-link">← Bandit Solutions</a></h1>
+            <p>Level 12 → Level 13 Walkthrough</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#current">Current Level</a></li>
+                <li><a href="index.html#solutions">All Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="level-nav">
+            <a href="level11.html" class="btn btn-small">← Previous Level</a>
+            <a href="level13.html" class="btn btn-small">Next Level →</a>
+        </div>
+
+        <article class="level-content">
+            <div class="level-header">
+                <h1>Level 12 → Level 13</h1>
+                <span class="level-status">Completed</span>
+            </div>
+
+            <section class="level-info">
+                <h2>📋 Level Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Host:</strong> bandit.labs.overthewire.org
+                    </div>
+                    <div class="info-item">
+                        <strong>Port:</strong> 2220
+                    </div>
+                    <div class="info-item">
+                        <strong>Username:</strong> bandit12
+                    </div>
+                    <div class="info-item">
+                        <strong>Password:</strong> 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+                    </div>
+                </div>
+            </section>
+
+            <section class="level-goal">
+                <h2>🎯 Level Goal</h2>
+                <p>The password for the next level is stored in the file <strong>data.txt</strong>, which is a <strong>hexdump</strong> of a file that has been <strong>repeatedly compressed</strong>.</p>
+                <p><strong>Challenge:</strong> You need to reverse the hexdump and then decompress the file multiple times using different compression algorithms.</p>
+            </section>
+
+            <section class="solution">
+                <h2>🔧 Solution Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Connect to Bandit12</h3>
+                    <p>Use the password from Level 11 to log in:</p>
+                    <div class="code-block">
+                        <pre><code>ssh bandit12@bandit.labs.overthewire.org -p 2220</code></pre>
+                    </div>
+                    <p>Password: <code>5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 2: Check the data.txt File</h3>
+                    <p>First, let's see what we're dealing with:</p>
+                    <div class="code-block">
+                        <pre><code>file data.txt
+head data.txt</code></pre>
+                    </div>
+                    <p>You'll see it's an ASCII text file containing a hexdump.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 3: Create a Working Directory</h3>
+                    <p>Create a temporary directory to work in:</p>
+                    <div class="code-block">
+                        <pre><code>mkdir /tmp/mydir
+cd /tmp/mydir
+cp ~/data.txt .</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 4: Reverse the Hexdump</h3>
+                    <p>Use xxd to convert the hexdump back to binary:</p>
+                    <div class="code-block">
+                        <pre><code>xxd -r data.txt > data</code></pre>
+                    </div>
+                    <p>This creates a binary file called "data".</p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 5: Identify the File Type</h3>
+                    <p>Check what type of file we have now:</p>
+                    <div class="code-block">
+                        <pre><code>file data</code></pre>
+                    </div>
+                    <p>It will show something like: <code>data: gzip compressed data</code></p>
+                </div>
+
+                <div class="step">
+                    <h3>Step 6: Begin Decompression Loop</h3>
+                    <p>We'll repeatedly decompress the file until we get the password:</p>
+                    <div class="code-block">
+                        <pre><code># First decompression - gzip
+mv data data.gz
+gzip -d data.gz
+file data
+
+# Second decompression - bzip2
+mv data data.bz2
+bzip2 -d data.bz2
+file data
+
+# Third decompression - gzip again
+mv data data.gz
+gzip -d data.gz
+file data
+
+# Fourth decompression - tar archive
+mv data data.tar
+tar -xf data.tar
+file data5.bin
+
+# Continue this pattern until you get an ASCII text file</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 7: Complete Decompression Sequence</h3>
+                    <p>Here's the complete sequence of decompression steps:</p>
+                    <div class="code-block">
+                        <pre><code>xxd -r data.txt > data
+file data                                # gzip
+mv data data.gz
+gzip -d data.gz
+file data                               # bzip2  
+mv data data.bz2
+bzip2 -d data.bz2
+file data                               # gzip
+mv data data.gz
+gzip -d data.gz
+file data                               # tar
+mv data data.tar
+tar -xf data.tar
+file data5.bin                          # tar
+mv data5.bin data5.tar
+tar -xf data5.tar
+file data6.bin                          # bzip2
+mv data6.bin data6.bz2
+bzip2 -d data6.bz2
+file data6                              # tar
+mv data6 data6.tar
+tar -xf data6.tar
+file data8.bin                          # gzip
+mv data8.bin data8.gz
+gzip -d data8.gz
+file data8                              # ASCII text!</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Step 8: Get the Password</h3>
+                    <p>Read the final decompressed file:</p>
+                    <div class="code-block">
+                        <pre><code>cat data8</code></pre>
+                    </div>
+                    <p>The file contains the password for Level 13:</p>
+                    <div class="code-block">
+                        <pre><code>8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alternative-methods">
+                <h2>🔄 Alternative Methods</h2>
+                
+                <div class="method">
+                    <h3>Method 2: Automated Script</h3>
+                    <p>Create a script to automate the decompression:</p>
+                    <div class="code-block">
+                        <pre><code>#!/bin/bash
+cp ~/data.txt /tmp/work/
+cd /tmp/work/
+xxd -r data.txt > data
+
+while true; do
+    filetype=$(file data | cut -d' ' -f2)
+    case $filetype in
+        gzip)
+            mv data data.gz
+            gzip -d data.gz
+            ;;
+        bzip2)
+            mv data data.bz2
+            bzip2 -d data.bz2
+            ;;
+        tar)
+            mv data data.tar
+            tar -xf data.tar
+            rm data.tar
+            # There might be multiple files, find the right one
+            datafile=$(ls | grep -v data.txt)
+            mv "$datafile" data
+            ;;
+        ASCII)
+            echo "Found the password:"
+            cat data
+            break
+            ;;
+        *)
+            echo "Unknown file type: $filetype"
+            break
+            ;;
+    esac
+done</code></pre>
+                    </div>
+                </div>
+
+                <div class="method">
+                    <h3>Method 3: Manual file command with appropriate decompression</h3>
+                    <p>Just keep checking file type and decompressing accordingly:</p>
+                    <div class="code-block">
+                        <pre><code>file data
+# Based on output, use appropriate command:
+# gzip compressed: gzip -d (or gunzip)
+# bzip2 compressed: bzip2 -d (or bunzip2)  
+# tar archive: tar -xf
+# Once you get ASCII text, you're done!</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <h2>💡 Explanation</h2>
+                <p>This level teaches file compression formats and how to work with hexdumps.</p>
+                
+                <h3>Hexdump and xxd:</h3>
+                <ul>
+                    <li><strong>Hexdump</strong> - A hexadecimal representation of binary data</li>
+                    <li><strong>xxd</strong> - Creates hexdump from binary or reverses hexdump to binary</li>
+                    <li><strong>xxd -r</strong> - Reverse mode (hexdump → binary)</li>
+                    <li>Useful for transferring binary files as text</li>
+                </ul>
+
+                <h3>Compression Formats Used:</h3>
+                <ul>
+                    <li><strong>gzip</strong> - .gz files, use <code>gzip -d</code> or <code>gunzip</code></li>
+                    <li><strong>bzip2</strong> - .bz2 files, use <code>bzip2 -d</code> or <code>bunzip2</code></li>
+                    <li><strong>tar</strong> - Tape archive, use <code>tar -xf</code> to extract</li>
+                </ul>
+
+                <h3>file Command:</h3>
+                <ul>
+                    <li>Determines file type by checking "magic numbers"</li>
+                    <li>Essential for knowing how to decompress unknown files</li>
+                    <li>Works even without file extensions</li>
+                </ul>
+
+                <h3>Why Multiple Compressions:</h3>
+                <ul>
+                    <li>Teaches recognition of different compression formats</li>
+                    <li>Shows that files can be compressed multiple times</li>
+                    <li>Demonstrates the importance of checking file types</li>
+                </ul>
+            </section>
+
+            <section class="common-mistakes">
+                <h2>⚠️ Common Mistakes</h2>
+                <ul>
+                    <li><strong>Wrong xxd usage:</strong> Forgetting -r flag (creates hexdump instead of reversing)</li>
+                    <li><strong>Missing file extensions:</strong> Not renaming files before decompression</li>
+                    <li><strong>Wrong decompression tool:</strong> Using gzip on bzip2 files or vice versa</li>
+                    <li><strong>Not checking file type:</strong> Assuming the compression format</li>
+                    <li><strong>Permission issues:</strong> Not using /tmp directory for writing files</li>
+                </ul>
+            </section>
+
+            <section class="tips">
+                <h2>💡 Pro Tips</h2>
+                <ul>
+                    <li>Always use <code>/tmp</code> directory for creating files</li>
+                    <li>Use <code>file</code> command after each decompression step</li>
+                    <li>Create a script to automate repetitive decompression</li>
+                    <li>You can use <code>strings</code> on binary files to look for text</li>
+                    <li>Keep track of the sequence - it's the same for everyone</li>
+                    <li>Use tab completion for file names to avoid typos</li>
+                </ul>
+            </section>
+
+            <section class="compression-reference">
+                <h2>📚 Compression Command Reference</h2>
+                <div class="code-block">
+                    <pre><code># Compression commands
+gzip file              # Creates file.gz
+bzip2 file             # Creates file.bz2  
+tar -cf archive.tar files/ # Creates tar archive
+
+# Decompression commands
+gzip -d file.gz        # or: gunzip file.gz
+bzip2 -d file.bz2      # or: bunzip2 file.bz2
+tar -xf archive.tar    # Extracts tar archive
+
+# Combined compression/decompression
+tar -czf archive.tar.gz files/    # tar + gzip
+tar -xzf archive.tar.gz           # extract tar.gz
+tar -cjf archive.tar.bz2 files/   # tar + bzip2
+tar -xjf archive.tar.bz2          # extract tar.bz2</code></pre>
+                </div>
+            </section>
+
+            <section class="real-world">
+                <h2>🌍 Real-World Applications</h2>
+                <p>These skills are used for:</p>
+                <ul>
+                    <li><strong>Digital forensics</strong> - Analyzing unknown file formats</li>
+                    <li><strong>Malware analysis</strong> - Unpacking compressed malicious files</li>
+                    <li><strong>Data recovery</strong> - Working with corrupted or encoded files</li>
+                    <li><strong>Software distribution</strong> - Handling various package formats</li>
+                    <li><strong>System administration</strong> - Managing backups and archives</li>
+                </ul>
+            </section>
+
+            <section class="next-level">
+                <h2>➡️ Next Level</h2>
+                <p>Once you have the password, proceed to Level 13:</p>
+                <div class="code-block">
+                    <pre><code>ssh bandit13@bandit.labs.overthewire.org -p 2220
+Password: 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL</code></pre>
+                </div>
+                <p>In Level 13, you'll get an SSH private key to connect to the next level.</p>
+                <a href="level13.html" class="btn">Go to Level 13 Solution →</a>
+            </section>
+        </article>
+
+        <div class="level-nav">
+            <a href="level11.html" class="btn btn-small">← Previous Level</a>
+            <a href="level13.html" class="btn btn-small">Next Level →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OverTheWire Bandit Solutions. 
+                <a href="index.html">Back to Home</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
